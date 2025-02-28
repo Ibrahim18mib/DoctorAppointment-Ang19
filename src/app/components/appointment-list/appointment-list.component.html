@@ -1,0 +1,19 @@
+<div class="row">
+    @for (item of appointmentLists; track $index) {
+
+    <div class="col-3">
+        <div class="card">
+            <div [class]="item?.isChecked ? 'card bg-success': 'card bg-warning'">
+                <h5 class="card-title">{{item?.patientName}}</h5>
+                <h5 class="card-title">{{item?.mobileNo}}</h5>
+                <h5 class="card-title">{{item?.email}}</h5>
+                <h5 class="card-title">{{item?.city}}</h5>
+                <p class="card-text">{{item?.address}}</p>
+                <p class="card-text">{{item?.isChecked ? 'Done':'New'}}</p>
+                <h5 class="card-title">{{item?.appointmentDate}}</h5>
+            </div>
+        </div>
+    </div>
+    }
+
+</div>

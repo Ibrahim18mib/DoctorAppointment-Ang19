@@ -1,0 +1,4 @@
+/* navbar.component.css */
+.nav-link.active {
+  color: #f0a500 !important; /* Active link color */
+}

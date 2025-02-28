@@ -1,1 +1,145 @@
 /* You can add global styles to this file, and also import other style files */
+/* Add application styles & imports to this file! */
+/* @import 'bootstrap/dist/css/bootstrap.min.css'; */
+
+:root {
+  --primary-color: #3f51b5;
+  --secondary-color: #4caf50;
+  --accent-color: #ff4081;
+  --background-color: #f5f5f5;
+  --text-color: #333;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: var(--background-color);
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+.loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 9999;
+}
+
+.medical-loader {
+  width: 80px;
+  height: 80px;
+  position: relative;
+}
+
+.medical-loader:before {
+  content: "";
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 6px solid var(--primary-color);
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+  position: absolute;
+}
+
+.medical-loader:after {
+  content: "⚕️";
+  font-size: 30px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.login-container {
+  max-width: 450px;
+  margin: 0 auto;
+  padding: 30px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.login-header img {
+  width: 80px;
+  margin-bottom: 15px;
+}
+
+.login-form .form-control {
+  height: 50px;
+  border-radius: 25px;
+  padding-left: 20px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.login-form .form-control:focus {
+  box-shadow: none;
+  border-color: var(--primary-color);
+}
+
+.login-form .btn-login {
+  height: 50px;
+  border-radius: 25px;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.login-form .btn-login:hover {
+  background-color: #303f9f;
+  transform: translateY(-2px);
+}
+
+.login-footer {
+  text-align: center;
+  margin-top: 20px;
+  color: #777;
+}
+
+.login-footer a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.login-footer a:hover {
+  text-decoration: underline;
+}
+
+.input-icon-wrapper {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  color: #aaa;
+}
+
+.input-with-icon {
+  padding-left: 45px;
+}
