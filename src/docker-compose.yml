@@ -1,0 +1,16 @@
+services:
+ doctorapp:
+  container_name: doctorappcontainer
+  build: .
+  image: doctorapp:v1
+  ports: 
+    - 80:80
+  expose:
+    - 80
+  networks:
+    - internalnet
+
+
+  networks:    
+   internalnet: 
+    driver: bridge   
