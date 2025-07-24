@@ -4,11 +4,13 @@ services:
   doctorapp:
     container_name: doctorappcontainer
     build: .
-    image: doctorapp:v1
+    #   context: ..
+    #   dockerfile: Dockerfile
+    image: doctorapp:v2
     ports:
-      - 80:80
+      - "80:80"
     expose:
-      - 80
+      - "80"
     networks:
       - internalnet
 
