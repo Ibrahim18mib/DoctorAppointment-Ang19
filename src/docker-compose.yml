@@ -1,16 +1,17 @@
+version: "3.8"
+
 services:
- doctorapp:
-  container_name: doctorappcontainer
-  build: .
-  image: doctorapp:v1
-  ports: 
-    - 80:80
-  expose:
-    - 80
-  networks:
-    - internalnet
+  doctorapp:
+    container_name: doctorappcontainer
+    build: .
+    image: doctorapp:v1
+    ports:
+      - 80:80
+    expose:
+      - 80
+    networks:
+      - internalnet
 
-
-  networks:    
-   internalnet: 
-    driver: bridge   
+networks:
+  internalnet:
+    driver: bridge
