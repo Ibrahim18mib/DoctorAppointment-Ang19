@@ -3,16 +3,17 @@ version: "3.8"
 services:
   doctorapp:
     container_name: doctorappcontainer
-    build: .
-    #   context: ..
-    #   dockerfile: Dockerfile
-    image: doctorapp:v2
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: doctor-appv1
     ports:
-      - "80:80"
+      - "4200:80" # Host: Container
     expose:
       - "80"
     networks:
       - internalnet
+    restart: always
 
 networks:
   internalnet:
