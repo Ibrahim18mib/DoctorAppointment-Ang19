@@ -26,6 +26,8 @@ COPY --from=build /app/dist/doctor-appointment/browser /usr/share/nginx/html
 # expose port 80
 EXPOSE 80
 
+CMD ["nginx","-g","daemon off;"]
+
 #Build : docker build -t demo-nodejs .
 #Run : docker run -d -p 8080:80 demo-nodejs
 #Compose: docker-compose up -d --build(build and compose)
