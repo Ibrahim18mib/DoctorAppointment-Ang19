@@ -6,15 +6,18 @@ pipeline {
         CONTAINER_NAME = "container-appv3"
     }
 
-    stage('Check Node & NPM') {
+   
+
+
+    stages {
+
+ stage('Check Node & NPM') {
     steps {
         sh 'node -v'
         sh 'npm -v'
     }
 }
 
-
-    stages {
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/Ibrahim18mib/DoctorAppointment.git'
