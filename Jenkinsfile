@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-    IMAGE_NAME = "doctor-appv1:latest"
+    IMAGE_NAME = "doctor-appv3"
+    CONTAINER_NAME = 'container-appv3'
     }
 
     stages {
@@ -22,17 +23,25 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'docker build -t doctor-appv1 .'
+                    sh 'docker build -t doctor-appv3 .'
                 }
             }
         }
 
-        stage('Run with Docker Compose') {
+        stage('Run Docker Container') {
             steps {
-                sh 'docker-compose down'
-                sh 'docker-compose up -d --build'
+                // Stop previous container if running
+                sh 'docker rm -f container-appv3 || true'
+                sh 'docker run -d -p 8081:80 --name container-appv3 doctor-appv3'
             }
         }
+
+        // stage('Run with Docker Compose') {
+        //     steps {
+        //         sh 'docker-compose down'
+        //         sh 'docker-compose up -d --build'
+        //     }
+        // }
     }
 
     post {
