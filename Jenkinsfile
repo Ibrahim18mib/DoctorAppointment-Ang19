@@ -23,13 +23,13 @@ pipeline {
 
         stage('Install Angular CLI') {
             steps {
-                sh 'npm install -g @angular/cli'
+                bat 'npm install -g @angular/cli'
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                bat 'npm install'
             }
         }
 
