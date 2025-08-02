@@ -1,26 +1,34 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:18'  // Use official Node.js image
+            args '-u root'   // Run as root to avoid permission issues
+        }
+    }
 
     environment {
         IMAGE_NAME = "doctor-appv3"
         CONTAINER_NAME = "container-appv3"
     }
 
-   
-
-
     stages {
 
- stage('Check Node & NPM') {
-    steps {
-        sh 'node -v'
-        sh 'npm -v'
-    }
-}
+        stage('Verify Environment') {
+            steps {
+                sh 'node -v'
+                sh 'npm -v'
+            }
+        }
 
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/Ibrahim18mib/DoctorAppointment.git'
+            }
+        }
+
+        stage('Install Angular CLI') {
+            steps {
+                sh 'npm install -g @angular/cli'
             }
         }
 
@@ -32,7 +40,7 @@ pipeline {
 
         stage('Build Angular App') {
             steps {
-                sh 'npm run build --prod'
+                sh 'ng build --configuration=production'
             }
         }
 
@@ -49,16 +57,6 @@ pipeline {
                 sh "docker run -d -p 8081:80 --name ${CONTAINER_NAME} ${IMAGE_NAME}"
             }
         }
-
-        // Uncomment below if you prefer Docker Compose instead of manual Docker build/run
-        /*
-        stage('Run with Docker Compose') {
-            steps {
-                sh 'docker-compose down || true'
-                sh 'docker-compose up -d --build'
-            }
-        }
-        */
     }
 
     post {
