@@ -21,13 +21,7 @@ pipeline {
             }
         }
 
-        stage('Install Angular CLI') {
-            steps {
-                bat 'npm install -g @angular/cli'
-            }
-        }
-
-        stage('Install Dependencies') {
+          stage('Install Dependencies') {
             steps {
                 bat 'npm ci || npm install'
             }
@@ -35,7 +29,7 @@ pipeline {
 
         stage('Build Angular App') {
             steps {
-                bat 'npx build --configuration=production'
+                bat 'npx ng build --configuration=production'
             }
         }
 
