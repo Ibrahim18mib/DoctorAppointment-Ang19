@@ -2,54 +2,58 @@ pipeline {
     agent any
 
     environment {
-    IMAGE_NAME = "doctor-appv3"
-    CONTAINER_NAME = 'container-appv3'
+        IMAGE_NAME = "doctor-appv3"
+        CONTAINER_NAME = "container-appv3"
     }
 
     stages {
+
+        stage('Verify Environment') {
+            steps {
+                bat 'node -v'
+                bat 'npm -v'
+            }
+        }
+
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/Ibrahim18mib/DoctorAppointment.git'
+                git branch: 'mib-test', url: 'https://github.com/Ibrahim18mib/DoctorAppointment.git'
+            }
+        }
+
+          stage('Install Dependencies') {
+            steps {
+                bat 'npm ci || npm install'
             }
         }
 
         stage('Build Angular App') {
             steps {
-                sh 'npm install'
-                sh 'npm run build --prod'
+                bat 'npx ng build --configuration=production'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                script {
-                    sh 'docker build -t doctor-appv3 .'
-                }
+                bat "docker build -t ${IMAGE_NAME} ."
             }
         }
 
         stage('Run Docker Container') {
             steps {
                 // Stop previous container if running
-                sh 'docker rm -f container-appv3 || true'
-                sh 'docker run -d -p 8081:80 --name container-appv3 doctor-appv3'
+                bat "docker rm -f ${CONTAINER_NAME} || true"
+                bat "docker run -d -p 8081:80 --name ${CONTAINER_NAME} ${IMAGE_NAME}"
             }
         }
-
-        // stage('Run with Docker Compose') {
-        //     steps {
-        //         sh 'docker-compose down'
-        //         sh 'docker-compose up -d --build'
-        //     }
-        // }
     }
 
     post {
         failure {
-            echo "Build failed!"
+            echo "❌ Build failed!"
         }
         success {
-            echo "Deployment successful!"
+            echo "✅ Deployment successful!"
         }
     }
 }

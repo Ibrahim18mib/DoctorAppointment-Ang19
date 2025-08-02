@@ -1,5 +1,5 @@
 # Step1: we build the angular app using the production config
-FROM node:20.11.1 AS build
+FROM node:22 AS build
 # set the working directory
 WORKDIR /app
 # copy the package.json and package-lock.json files
