@@ -29,13 +29,13 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                bat 'npm install'
+                bat 'npm ci || npm install'
             }
         }
 
         stage('Build Angular App') {
             steps {
-                bat 'ng build --configuration=production'
+                bat 'npx build --configuration=production'
             }
         }
 
