@@ -17,7 +17,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/Ibrahim18mib/DoctorAppointment.git'
+                git branch: 'mib-test', url: 'https://github.com/Ibrahim18mib/DoctorAppointment.git'
             }
         }
 
