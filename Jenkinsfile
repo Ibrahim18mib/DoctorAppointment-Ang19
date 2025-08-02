@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:18'  // Use official Node.js image
-            args '-u root'   // Run as root to avoid permission issues
-        }
-    }
+    agent any
 
     environment {
         IMAGE_NAME = "doctor-appv3"
@@ -15,8 +10,8 @@ pipeline {
 
         stage('Verify Environment') {
             steps {
-                sh 'node -v'
-                sh 'npm -v'
+                bat 'node -v'
+                bat 'npm -v'
             }
         }
 
@@ -40,21 +35,21 @@ pipeline {
 
         stage('Build Angular App') {
             steps {
-                sh 'ng build --configuration=production'
+                bat 'ng build --configuration=production'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t ${IMAGE_NAME} ."
+                bat "docker build -t ${IMAGE_NAME} ."
             }
         }
 
         stage('Run Docker Container') {
             steps {
                 // Stop previous container if running
-                sh "docker rm -f ${CONTAINER_NAME} || true"
-                sh "docker run -d -p 8081:80 --name ${CONTAINER_NAME} ${IMAGE_NAME}"
+                bat "docker rm -f ${CONTAINER_NAME} || true"
+                bat "docker run -d -p 8081:80 --name ${CONTAINER_NAME} ${IMAGE_NAME}"
             }
         }
     }
